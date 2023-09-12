@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     get '/' => "homes#top"
     resources :reviews, only: [:show, :index, :destroy]
     resources :customers, only: [:edit, :update, :show, :index]
+    resources :posts, only: [:destroy, :index, :show]
   end
   
   

@@ -6,11 +6,113 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= yield %>
+    <header class="shadow-sm">
+      <nav class="navbar bg-white text-dark">
+        <div class="container text-dark">
+          <a class="navber-brand" href="/">
+            <span>travelReview</span>
+          </a>
+            <ul class="nav pull-right nav-pills text-dark">
+              <% if customer_signed_in? %>
+                <p class="h6">ユーザーネーム:<%= current_customer.last_name %></p>
+                <li class="nav-item">
+                  <%= link_to customers_path, class: "nav-link text-dark" do %>
+                    マイページ
+                  <%end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to comments_path, class: "nav-link text-dark" do %>
+                    コメント一覧
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to posts_path, method: :get,class: "nav-link text-dark" do %>
+                    投稿一覧
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to reviews_path, method: :get,class: "nav-link text-dark" do %>
+                    レビュー一覧
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to destroy_customer_session_path, method: :delete, class: "nav-link text-dark" do %>
+                    ログアウト
+                  <% end %>
+                </li>
+              <% elsif admin_signed_in? %>
+                <li class="nav-item">
+                  <%= link_to admin_posts_path, method: :get, class: "nav-link text-dark" do %>
+                    投稿一覧
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to admin_reviews_path, method: :get, class: "nav-link text-dark" do %>
+                    レビュー一覧
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to admin_customers_path, method: :get, class: "nav-link text-dark" do %>
+                    会員一覧
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to destroy_admin_session_path, method: :delete, class: "nav-link text-dark" do %>
+                    ログアウト
+                  <% end %>
+                </li>
+              <% else %>
+                <li class="nav-item">
+                <%= link_to about_path, class: "nav-link text-dark" do %>
+                  About
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to comments_path, class: "nav-link text-dark" do %>
+                    コメント一覧
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to posts_path, class: "nav-link text-dark" do %>
+                    投稿一覧
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to new_customer_registration_path, class: "nav-link text-dark" do %>
+                    新規登録
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to customer_session_path, class: "nav-link text-dark" do %>
+                    ログイン
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+      </nav>
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+
+    </header>
   </body>
+  <main>
+    <%= yield %>
+  </main>
+  <footer>
+    <div class="container mt-5">
+      <div class="row">
+        <div class="mx-auto">
+          <p></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
 </html>
