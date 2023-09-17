@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
     sessions: "admin/sessions"
   }
-  
+
   scope module: :public do
     root to: 'homes#top'
     resources :comments, only: [:show, :index, :destroy]
@@ -11,24 +11,28 @@ Rails.application.routes.draw do
     get 'customers', to: 'customers#show'
     get 'customers/edit', to: "customers#edit"
     patch 'customers', to: "customers#update"
-    resources :posts, only: [:create, :destroy, :update, :index, :new, :show]
+    resources :posts, only: [:create, :destroy, :update, :index, :new, :show, :edit]
     resources :reviews, only: [:show, :edit, :update, :index, :new, :create, :destroy]
     get '/about' => "homes#about"
   end
-  
-  
+
+
   devise_for :customers,skip: [:passwords], controllers: {
     registrations: "public/registrations",
     sessions: 'public/sessions'
   }
-  
+
+  devise_scope :customer do
+    post 'customers/guest_sign_in', to: 'customers/sessions#guest_sign_in'
+  end
+
   namespace :admin do
     get '/' => "homes#top"
     resources :reviews, only: [:show, :index, :destroy]
     resources :customers, only: [:edit, :update, :show, :index]
     resources :posts, only: [:destroy, :index, :show]
   end
-  
-  
+
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

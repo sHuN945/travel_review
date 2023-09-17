@@ -1,0 +1,16 @@
+<div class="col-md-8 offset-md-1">
+  <h2>投稿一覧</h2>
+  <h3>全<%= @posts.count %>件</h3>
+  <table class="table table-hobver table-inverse">
+    <% @posts.each do |post| %>
+      <tr>
+        <td>
+          <%= link_to post_path(post) do %>
+            <%= post.created_at %>
+          <% end %>
+        </td>
+        <td><%= post.post_place %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

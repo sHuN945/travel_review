@@ -1,0 +1,13 @@
+<div class="col-md-8 offset-md-1">
+  <tbody>
+    <tr>
+      <td>
+        <%= image_tag @post.image %>
+      </td>
+      <div class="h4 py-2"><%= @post.post_place %></div>
+      <div class="h5 py-2"><%= @post.introduction %></div>
+      <td><%= link_to '編集する',edit_post_path(@post.id), class: "btn btn-success" %></td>
+      <td><%= link_to '削除する',post_path(@post.id), method: :delete, "data-confirm" => "本当に消しますか？", class: "btn btn-sm btn-danger" %></td>
+    </tr>
+  </tbody>
+</div>
