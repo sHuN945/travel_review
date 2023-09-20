@@ -1,0 +1,19 @@
+<div class="md:mx-auto">
+  <div class="text-center">
+    <p class="h2 py-4">本当に退会しますか?</p>
+    <p class="h4">
+      退会すると、会員登録情報や<br />
+      コメントやレビューができなくなります。<br />
+      退会する場合は「退会する」をクリックしてください。
+    </p>
+  </div>
+  <div class="text-center">
+    <div class="actions py-2">
+       <%= link_to '退会しない',customers_path(current_customer), class: "btn btn-success" %>
+    </div>
+          
+    <div class="actions">
+      <%= link_to '退会する',customers_withdrawal_path, method: :patch, "data-confirm" => "本当に退会しますか？", class: "btn btn-sm btn-danger" %>
+    </div>
+  </div>
+</div>

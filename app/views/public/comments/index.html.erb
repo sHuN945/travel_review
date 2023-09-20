@@ -1,0 +1,29 @@
+<div class="col-md-8 offset-md-1">
+  <tbody>
+    <tr>
+      <td>
+        <% if @post.image.attached? %>
+          <%= image_tag @post.image, size: "200x200" %>
+        <% else %>
+          <%= image_tag 'no_image', size: "200x200" %>
+        <% end %>
+      </td>
+      <div class="h4 py-2">投稿場所<%= @post.post_place %></div>
+      <div class="h5 py-2">投稿内容<%= @post.introduction %></div>
+      <h2>コメント一覧</h2>
+      <% @comments.each do |c| %>
+        <div>
+          <a href="/customers/<%= @post.customer.id %>"><%= c.customer.email %></a>
+          <%= c.comment %>
+          <hr>
+        </div>
+      <% end %>
+
+      <%= form_for [@post, @comment] do |f| %>
+        <%= f.text_field :comment %>
+        <br>
+        <%= f.submit 'コメントする' %>
+      <% end %>
+    </tr>
+  </tbody>
+</div>

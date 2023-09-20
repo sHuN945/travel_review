@@ -5,15 +5,18 @@ Rails.application.routes.draw do
 
   scope module: :public do
     root to: 'homes#top'
-    resources :comments, only: [:show, :index, :destroy]
+    resources :comments, only: [:create, :show, :index, :destroy]
     get 'customers/unsubscribe' => "customers#unsubscribe", as: :unsubscribe
     patch 'customers/withdrawal' => "customers#withdrawal"
     get 'customers', to: 'customers#show'
     get 'customers/edit', to: "customers#edit"
     patch 'customers', to: "customers#update"
-    resources :posts, only: [:create, :destroy, :update, :index, :new, :show, :edit]
+    resources :posts, only: [:create, :destroy, :update, :index, :new, :show, :edit] do
+      resources :comments, only: [:create, :show, :index, :destroy, :new]
+    end
     resources :reviews, only: [:show, :edit, :update, :index, :new, :create, :destroy]
     get '/about' => "homes#about"
+    get "search" => "posts#search"
   end
 
 
@@ -25,7 +28,7 @@ Rails.application.routes.draw do
   devise_scope :customer do
     post 'customers/guest_sign_in', to: 'customers/sessions#guest_sign_in'
   end
-
+  
   namespace :admin do
     get '/' => "homes#top"
     resources :reviews, only: [:show, :index, :destroy]
