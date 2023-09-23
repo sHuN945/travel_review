@@ -3,16 +3,26 @@
   <h2>投稿一覧</h2>
   <h3>全<%= @posts.count %>件</h3>
   <table class="table table-hobver table-inverse">
-    <% @posts.each do |post| %>
+    <thead>
       <tr>
-        <td>
-          <%= link_to post_path(post) do %>
-            <%= post.created_at %>
-          <% end %>
-        </td>
-        <td><%= post.post_place %></td>
-        <td><%= post.customer.last_name %><%= post.customer.first_name %></td>
+        <th>投稿日時</th>
+        <th>投稿場所</th>
+        <th>氏名</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
+    </thead>
+    <tbody>
+      <% @posts.each do |post| %>
+        <tr>
+          <td>
+            <%= link_to post_path(post) do %>
+              <%= post.created_at %>
+            <% end %>
+          </td>
+          <td><%= post.post_place %></td>
+          <td><%= post.customer.last_name %><%= post.customer.first_name %></td>
+        </tr>
+      <% end %>
+    </tbody>
   </table>
 </div>

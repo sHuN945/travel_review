@@ -1,5 +1,5 @@
 class Public::PostsController < ApplicationController
-  before_action :authenticate_user!, only: [:show, :create]
+  before_action :authenticate_customer!, only: [:show, :create]
   
   def index
     @posts = Post.page(params[:page]).per(8)

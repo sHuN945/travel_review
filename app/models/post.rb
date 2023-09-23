@@ -1,7 +1,7 @@
 class Post < ApplicationRecord
   has_one_attached :image
   belongs_to :customer
-  has_many :comments
+  has_many :comments, dependent: :destroy
   
   def self.search(keyword)
     where("customer LIKE ? or post LIKE ?", "%#{keyword}%", "%#{keyword}%")

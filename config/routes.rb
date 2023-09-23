@@ -2,10 +2,19 @@ Rails.application.routes.draw do
   devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
     sessions: "admin/sessions"
   }
+  
+    devise_for :customers,skip: [:passwords], controllers: {
+    registrations: "public/registrations",
+    sessions: 'public/sessions'
+  }
+
+  devise_scope :customer do
+    post 'customers/guest_sign_in', to: 'customers/sessions#guest_sign_in'
+  end
 
   scope module: :public do
     root to: 'homes#top'
-    resources :comments, only: [:create, :show, :index, :destroy]
+    resources :comments, only: [:show, :index, :destroy]
     get 'customers/unsubscribe' => "customers#unsubscribe", as: :unsubscribe
     patch 'customers/withdrawal' => "customers#withdrawal"
     get 'customers', to: 'customers#show'
@@ -20,14 +29,7 @@ Rails.application.routes.draw do
   end
 
 
-  devise_for :customers,skip: [:passwords], controllers: {
-    registrations: "public/registrations",
-    sessions: 'public/sessions'
-  }
 
-  devise_scope :customer do
-    post 'customers/guest_sign_in', to: 'customers/sessions#guest_sign_in'
-  end
   
   namespace :admin do
     get '/' => "homes#top"
