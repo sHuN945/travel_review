@@ -17,6 +17,6 @@ class Public::HomesController < ApplicationController
 
   private
   def post_params
-    params.require(:list).permit(:title, :body, :image)
+    params.require(:list).permit(:title, :body, :image, :star)
   end
 end

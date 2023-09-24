@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 2023_09_17_050138) do
     t.integer "customer_id", null: false
     t.text "introduction", null: false
     t.string "post_place", null: false
+    t.string "star", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

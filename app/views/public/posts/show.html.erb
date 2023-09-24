@@ -10,6 +10,22 @@
       </td>
       <div class="h4 py-2">投稿場所<%= @post.post_place %></div>
       <div class="h5 py-2">投稿内容<%= @post.introduction %></div>
+      <div class=card>
+        <div id="star-rate<%= @post.id%>"></div>
+        <script>
+            var elem = document.getElementById('star');
+            var opt = {
+            size      : 36,
+            starOff   : '<%= asset_path('star-off.png') %>',
+            starOn    : '<%= asset_path('star-on.png') %>',
+            half      : false,
+            readOnly: true,
+            score: <%= @post.star %>,
+          };
+          
+          raty(elem, opt);
+        </script>
+      </div>
       <div>
         <p>コメント件数：<%= @post.comments.count %></p>
         <% @post.comments.each do |comment| %>
@@ -21,16 +37,17 @@
         <% end %>
       </div>
       <div>
-        <%= form_with model: [@post, @comment] do |f| %>
-          <%= f.text_area :content, rows: '5', placeholder: "コメントをここに" %>
-          <%= f.submit "コメントする", class: "btn btn-success" %>
+        <% if @post.customer == current_customer %>
+          <td><%= link_to 'コメント一覧',post_comments_path(@post.id), class: "btn btn-success" %></td>
+          <td><%= link_to '投稿を編集',edit_post_path(@post.id), class: "btn btn-success" %></td>
+          <td><%= link_to '投稿を削除',post_path(@post.id), method: :delete, "data-confirm" => "本当に消しますか？", class: "btn btn-sm btn-danger" %></td>
+        <% else %>
+          <%= form_with model: [@post, @comment] do |f| %>
+            <%= f.text_area :content, rows: '5', placeholder: "コメントをここに" %>
+            <%= f.submit "コメントする", class: "btn btn-success" %>
+          <% end %>
         <% end %>
       </div>
-      <% if @post.customer == current_customer %>
-        <td><%= link_to 'コメント一覧',post_comments_path(@post.id), class: "btn btn-success" %></td>
-        <td><%= link_to '投稿を編集',edit_post_path(@post.id), class: "btn btn-success" %></td>
-        <td><%= link_to '投稿を削除',post_path(@post.id), method: :delete, "data-confirm" => "本当に消しますか？", class: "btn btn-sm btn-danger" %></td>
-      <% end %>
     </tr>
   </tbody>
 </div>

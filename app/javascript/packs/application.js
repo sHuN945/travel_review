@@ -16,3 +16,15 @@ import "../stylesheets/application";
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+window.$ = window.jQuery = require('jquery');
+
+import Raty from "../src/raty"
+
+window.raty = (elem, opt) => {
+    if (elem && opt) {
+      var raty = new Raty(elem, opt)
+      raty.init();
+      return raty;
+    }
+}
