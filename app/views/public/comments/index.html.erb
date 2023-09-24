@@ -12,13 +12,14 @@
       <% @comments.each do |comment| %>
         <tr>
           <td>
-            <%= link_to post_path(post) do %>
               <%= comment.created_at %>
-            <% end %>
           </td>
           <td><%= comment.content %></td>
+          <% if @comment.customer == current_customer %>
+            <td><%= link_to '編集する',edit_comment_path(@comment.id), class: "btn btn-success" %></td>
+            <td><%= link_to '削除する',comment_path(@comment.id), method: :delete, "data-confirm" => "本当に消しますか？", class: "btn btn-sm btn-danger" %></td>
+          <% end %>
         </tr>
       <% end %>
-  
     </tbody>
 </div>

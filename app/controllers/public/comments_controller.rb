@@ -4,7 +4,7 @@ class Public::CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_params)
     @comment.customer_id = current_customer.id
-    if @comment.save!
+    if @comment.save
       redirect_back(fallback_location: root_path)
     else
       redirect_back(fallback_location: root_path)
@@ -28,7 +28,7 @@ class Public::CommentsController < ApplicationController
   private
 
   def comment_params
-    params.require(:comment).permit(:content)
+    params.require(:comment).permit(:content, :post_id)
   end
   
 end

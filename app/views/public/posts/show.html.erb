@@ -13,15 +13,15 @@
       <div class=card>
         <div id="star-rate<%= @post.id%>"></div>
         <script>
-            var elem = document.getElementById('star');
-            var opt = {
+          var elem = document.getElementById('star');
+          var opt = {
             size      : 36,
             starOff   : '<%= asset_path('star-off.png') %>',
             starOn    : '<%= asset_path('star-on.png') %>',
             half      : false,
             readOnly: true,
             score: <%= @post.star %>,
-          };
+            };
           
           raty(elem, opt);
         </script>
@@ -29,8 +29,8 @@
       <div>
         <p>コメント件数：<%= @post.comments.count %></p>
         <% @post.comments.each do |comment| %>
-          <%= comment.user.name %>
-          <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment %>
+          <%= comment.customer.last_name %><%= comment.customer.first_name %>
+          <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.content %>
           <% if comment.customer == current_customer %>
             <%= link_to "削除", post_comment_path(comment.post, comment), method: :delete %>
           <% end %>
@@ -44,6 +44,7 @@
         <% else %>
           <%= form_with model: [@post, @comment] do |f| %>
             <%= f.text_area :content, rows: '5', placeholder: "コメントをここに" %>
+            <%= f.hidden_field :post_id, value: @post.id %>
             <%= f.submit "コメントする", class: "btn btn-success" %>
           <% end %>
         <% end %>

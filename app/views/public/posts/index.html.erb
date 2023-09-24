@@ -22,10 +22,9 @@
           </td>
           <td><%= post.post_place %></td>
           <td>
-            <div id="star-rate<%= post.id%>">
+            <div id="star-rate<%= post.id %>"></div> 
               <script>
-                $('#star-rate<%= post.id %>').empty();
-                $('#star-rate<%= post.id%>').raty({
+                $('#star-rate<%= post.id %>').raty({
                 size      : 36,
                 starOff   : '<%= asset_path('star-off.png') %>',
                 starOn    : '<%= asset_path('star-on.png') %>',
@@ -34,7 +33,7 @@
                 score: <%= post.star %>,
                 });
               </script>
-            </div>  
+             
           </td>
           <td><%= post.customer.last_name %><%= post.customer.first_name %></td>
         </tr>
