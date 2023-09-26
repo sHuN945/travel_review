@@ -3,11 +3,6 @@ Rails.application.routes.draw do
     sessions: "admin/sessions"
   }
   
-    devise_for :customers,skip: [:passwords], controllers: {
-    registrations: "public/registrations",
-    sessions: 'public/sessions'
-  }
-
   devise_scope :customer do
     post 'customers/guest_sign_in', to: 'customers/sessions#guest_sign_in'
   end
@@ -21,15 +16,17 @@ Rails.application.routes.draw do
     get 'customers/edit', to: "customers#edit"
     patch 'customers', to: "customers#update"
     resources :posts, only: [:create, :destroy, :update, :index, :new, :show, :edit] do
-      resources :comments, only: [:create, :show, :index, :destroy, :new]
+      resources :comments, only: [:create, :show, :index, :destroy, :new, :edit]
     end
     resources :reviews, only: [:show, :edit, :update, :index, :new, :create, :destroy]
     get '/about' => "homes#about"
     get "search" => "posts#search"
   end
 
-
-
+      devise_for :customers,skip: [:passwords], controllers: {
+    registrations: "public/registrations",
+    sessions: 'public/sessions'
+  }
   
   namespace :admin do
     get '/' => "homes#top"

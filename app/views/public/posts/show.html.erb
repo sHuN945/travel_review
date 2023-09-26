@@ -11,19 +11,20 @@
       <div class="h4 py-2">投稿場所<%= @post.post_place %></div>
       <div class="h5 py-2">投稿内容<%= @post.introduction %></div>
       <div class=card>
-        <div id="star-rate<%= @post.id%>"></div>
+        <div id="star-rate"></div>
         <script>
-          var elem = document.getElementById('star');
-          var opt = {
+          var showElem = document.getElementById('star-rate');
+          var showOpt = {
             size      : 36,
             starOff   : '<%= asset_path('star-off.png') %>',
             starOn    : '<%= asset_path('star-on.png') %>',
+            scoreName: 'post[star]',
             half      : false,
             readOnly: true,
             score: <%= @post.star %>,
             };
           
-          raty(elem, opt);
+          raty(showElem, showOpt);
         </script>
       </div>
       <div>
@@ -38,7 +39,6 @@
       </div>
       <div>
         <% if @post.customer == current_customer %>
-          <td><%= link_to 'コメント一覧',post_comments_path(@post.id), class: "btn btn-success" %></td>
           <td><%= link_to '投稿を編集',edit_post_path(@post.id), class: "btn btn-success" %></td>
           <td><%= link_to '投稿を削除',post_path(@post.id), method: :delete, "data-confirm" => "本当に消しますか？", class: "btn btn-sm btn-danger" %></td>
         <% else %>

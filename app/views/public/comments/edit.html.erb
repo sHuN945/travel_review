@@ -16,18 +16,8 @@
 
       <%= form_with model: @post, url: post_path(@post.id), method: :patch do |f| %>
         <div class="form-group">
-          <%= f.label :商品画像 %><br>
-          <%= f.file_field :image, accept: "image/*" %>
-        </div>
-        
-        <div class="form-group">
-          <%= f.label :投稿場所 %><br>
-          <%= f.text_field :post_place, placeholder:"投稿場所"%>
-        </div>
-        
-        <div class="form-group">
-          <%= f.label :レビュー %><br>
-          <%= f.text_area :introduction, autofocus: true, id:"post_introduction" %>
+          <%= f.label :コメント %><br>
+          <%= f.text_area :content, autofocus: true, id:"comment_content" %>
         </div>
         
         <div class="form-group">
