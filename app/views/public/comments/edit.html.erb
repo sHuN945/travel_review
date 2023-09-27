@@ -12,9 +12,9 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
-      <h2>投稿編集</h2>
+      <h2>コメント編集</h2>
 
-      <%= form_with model: @post, url: post_path(@post.id), method: :patch do |f| %>
+      <%= form_with model: @comment, url: comment_path(@comment.id), method: :patch do |f| %>
         <div class="form-group">
           <%= f.label :コメント %><br>
           <%= f.text_area :content, autofocus: true, id:"comment_content" %>

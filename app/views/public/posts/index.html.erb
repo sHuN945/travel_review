@@ -22,16 +22,20 @@
           </td>
           <td><%= post.post_place %></td>
           <td>
-            <div id="star-rate<%= post.id %>"></div> 
+            <div id="star-rate"></div> 
               <script>
-                $('#star-rate<%= post.id %>').raty({
-                size      : 36,
-                starOff   : '<%= asset_path('star-off.png') %>',
-                starOn    : '<%= asset_path('star-on.png') %>',
-                half      : false,
-                readOnly: true,
-                score: <%= post.star %>,
-                });
+                var showElem = document.getElementById('star-rate');
+                var showOpt = {
+                    size      : 36,
+                    starOff   : '<%= asset_path('star-off.png') %>',
+                    starOn    : '<%= asset_path('star-on.png') %>',
+                    scoreName: 'post[star]',
+                    half      : false,
+                   readOnly: true,
+                   score: <%= post.star %>,
+                  };
+          
+                raty(showElem, showOpt);
               </script>
              
           </td>
