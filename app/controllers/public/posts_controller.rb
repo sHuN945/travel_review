@@ -35,13 +35,13 @@ class Public::PostsController < ApplicationController
     @post = Post.new(post_params)
     @customer = current_customer
     @post.customer_id = current_customer.id
-  if @post.save
-    flash[:notice] = "投稿しました。"
-    redirect_to posts_path
-  else
-    @posts = Post.all
-    render :index
-  end
+    if @post.save
+      flash[:notice] = "投稿しました。"
+      redirect_to posts_path
+    else
+      @posts = Post.all
+      render :index
+    end
   end
   
   def update
@@ -58,6 +58,17 @@ class Public::PostsController < ApplicationController
     post = Post.find(params[:id])
     post.destroy
     redirect_to '/posts'
+  end
+  
+  def search
+    @range = params[:range]
+    @word = params[:word]
+
+    if @range == "Customer"
+      @customers = Customer.looks(params[:search], params[:word])
+    else
+      @posts = post.looks(params[:search], params[:word])
+    end
   end
   
   private

@@ -16,8 +16,25 @@ class Customer < ApplicationRecord
     end
   end
 
+  def self.looks(search, word)
+    if search == "perfect_match"
+      @customer = Customer.where("last_name LIKE?", "#{word}")
+    elsif search == "forward_match"
+      @customer = Customer.where("last_name LIKE?","#{word}%")
+    elsif search == "backward_match"
+      @customer = Customer.where("last_name LIKE?","%#{word}")
+    elsif search == "partial_match"
+      @customer = Customer.where("last_name LIKE?","%#{word}%")
+    else
+      @customer = Customer.all
+    end
+  end
+
+
   validates :last_name, :first_name, :last_name_kana, :first_name_kana, :postal_code, :address, :telephone_number, presence: true
 
-
+  def active_for_authentication?
+    super && (is_deleted == nil)
+  end
 
 end

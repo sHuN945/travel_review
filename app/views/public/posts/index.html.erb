@@ -7,9 +7,8 @@
       <tr>
         <th>投稿日時</th>
         <th>投稿場所</th>
-        <th>レビュー</th>
         <th>氏名</th>
-        <th colspan="4"></th>
+        <th colspan="3"></th>
       </tr>
     </thead>
     <tbody>
@@ -21,24 +20,6 @@
             <% end %>
           </td>
           <td><%= post.post_place %></td>
-          <td>
-            <div id="star-rate"></div> 
-              <script>
-                var showElem = document.getElementById('star-rate');
-                var showOpt = {
-                    size      : 36,
-                    starOff   : '<%= asset_path('star-off.png') %>',
-                    starOn    : '<%= asset_path('star-on.png') %>',
-                    scoreName: 'post[star]',
-                    half      : false,
-                   readOnly: true,
-                   score: <%= post.star %>,
-                  };
-          
-                raty(showElem, showOpt);
-              </script>
-             
-          </td>
           <td><%= post.customer.last_name %><%= post.customer.first_name %></td>
         </tr>
       <% end %>

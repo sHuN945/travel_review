@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
     sessions: "admin/sessions"
   }
+
+
+
   
   devise_scope :customer do
     post 'customers/guest_sign_in', to: 'customers/sessions#guest_sign_in'
@@ -20,10 +23,10 @@ Rails.application.routes.draw do
     end
     resources :reviews, only: [:show, :edit, :update, :index, :new, :create, :destroy]
     get '/about' => "homes#about"
-    get "search" => "posts#search"
+    get "search" => "searches#search"
   end
 
-      devise_for :customers,skip: [:passwords], controllers: {
+  devise_for :customers,skip: [:passwords], controllers: {
     registrations: "public/registrations",
     sessions: 'public/sessions'
   }
@@ -35,6 +38,7 @@ Rails.application.routes.draw do
     resources :posts, only: [:destroy, :index, :show]
   end
 
+ 
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
