@@ -1,11 +1,11 @@
 <div class="container">
   <div class="row">
-    <div class="mx-3">
+    <div class="mx-auto">
       <h2>ログイン</h2>
       
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
         
-        <h3>会員の方はこちらからログイン</h3>
+        <h4>会員の方はこちらからログイン</h4>
         
         <div class="field">
           <%= f.label :メールアドレス %>
@@ -21,12 +21,16 @@
           <%= f.submit "ログイン" %>
         </div>
         
-        <h3>会員登録がお済みでない方</h3>
-        <h4>
-          <%= link_to new_customer_registration_path do %>
-            こちら
-          <% end %>
-        　から新規登録してください。
-        </h4>
-      
+        <div class="my-5">
+          <h3>会員登録がお済みでない方</h3>
+          <h5>
+            <%= link_to new_customer_registration_path do %>
+              こちら
+            <% end %>
+          　から新規登録してください。
+          </h5>
+        </div>
       <% end %>
+    </div>
+  </div>
+</div>
