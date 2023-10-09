@@ -1,38 +1,93 @@
-<h1>新規投稿</h1>
-<% if @post.errors.any? %>
-  <%= @post.errors.count %>件のエラーが発生しました
-  <ul>
-    <% @post.errors.full_messages.each do |massage| %>
-      <li><%= massage %></li>
-    <% end %>
-  </ul>
-<% end %>
-
-<%= form_with model: @post, url: '/posts', method: :post do |f| %>
-  <h4>投稿場所</h4>
-  <%= f.text_field :post_place %>
-
-  <h4>本文</h4>
-  <%= f.text_area :introduction %>
-
-  <h4>画像</h4>
-  <%= f.file_field :image, accept: "image/*" %>
-
-  <div class="form-group row" id="star">
-    <%= f.label :star,'評価 ', class:'col-md-3 col-form-label' %>
-    <%= f.hidden_field :star, id: :review_star %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <h1>新規投稿</h1>
+      <% if @post.errors.any? %>
+        <%= @post.errors.count %>件のエラーが発生しました
+        <ul>
+          <% @post.errors.full_messages.each do |massage| %>
+            <li><%= massage %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    
+      <%= form_with model: @post, url: '/posts', method: :post do |f| %>
+        <h4>投稿場所</h4>
+        <%= f.text_field :post_place %>
+    
+        <h4>本文</h4>
+        <%= f.text_area :introduction %>
+    
+        <h4>画像</h4>
+        <%= f.file_field :image, accept: "image/*" %>
+    
+        <div class="form-group row" id="star">
+          <%= f.label :star,'評価 ', class:'col-md-3 col-form-label' %>
+          <%= f.hidden_field :star, id: :review_star %>
+        </div>
+        
+        <script>
+          var elem = document.getElementById('star');
+          var opt = {
+            size     : 36,
+            starOff:  '<%= asset_path('star-off.png') %>',
+            starOn : '<%= asset_path('star-on.png') %>',
+            scoreName: 'post[star]',
+            half: false
+          }
+    
+          raty(elem, opt);
+        </script>
+        <%= f.submit '投稿' %>
+      <% end %>
+    </div>
+    <div class="col-md-9">
+      <input id="address" type="textbox" value="">
+      <input type="button" value="検索" onclick="codeAddress()">
+      <div id='map'></div>
+      
+      <style>
+        #map {
+          height: 900px;
+          width: 900px;
+        }
+      </style>
+      <script>
+        let map
+      
+        function initMap(){
+          geocoder = new google.maps.Geocoder()
+      
+          map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: 40.7828, lng:-73.9653},
+            zoom: 12,
+          });
+      
+          marker = new google.maps.Marker({
+            position:  {lat: 40.7828, lng:-73.9653},
+            map: map
+          });
+        }
+      
+        let geocoder
+      
+        function codeAddress(){
+          let inputAddress = document.getElementById('address').value;
+      
+          geocoder.geocode( { 'address': inputAddress}, function(results, status) {
+            if (status == 'OK') {
+              map.setCenter(results[0].geometry.location);
+              var marker = new google.maps.Marker({
+                  map: map,
+                  position: results[0].geometry.location
+              });
+            } else {
+              alert('該当する結果がありませんでした：' + status);
+            }
+          });
+        }
+      </script>
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsUBphdP0f5-Bp5J-7nMNmiWvxcNZeoq8&callback=initMap" async defer></script>
+    </div>
   </div>
-  <script>
-    var elem = document.getElementById('star');
-    var opt = {
-      size     : 36,
-      starOff:  '<%= asset_path('star-off.png') %>',
-      starOn : '<%= asset_path('star-on.png') %>',
-      scoreName: 'post[star]',
-      half: false
-    }
-
-    raty(elem, opt);
-  </script>
-  <%= f.submit '投稿' %>
-<% end %>
+</div>

@@ -3,25 +3,21 @@ Rails.application.routes.draw do
     sessions: "admin/sessions"
   }
 
-
-
-  
   devise_scope :customer do
     post 'customers/guest_sign_in', to: 'public/sessions#guest_sign_in'
   end
 
   scope module: :public do
     root to: 'homes#top'
-    resources :comments, only: [:show, :index, :destroy]
+    resources :comments, only: [:show, :index, :destroy, :edit]
     get 'customers/unsubscribe' => "customers#unsubscribe", as: :unsubscribe
     patch 'customers/withdrawal' => "customers#withdrawal"
     get 'customers', to: 'customers#show'
     get 'customers/edit', to: "customers#edit"
     patch 'customers', to: "customers#update"
     resources :posts, only: [:create, :destroy, :update, :index, :new, :show, :edit] do
-      resources :comments, only: [:create, :show, :index, :destroy, :new, :edit]
+      resources :comments, only: [:create, :index, :destroy]
     end
-    resources :reviews, only: [:show, :edit, :update, :index, :new, :create, :destroy]
     get '/about' => "homes#about"
     get "search" => "searches#search"
   end
