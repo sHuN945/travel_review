@@ -19,7 +19,6 @@ class Public::CommentsController < ApplicationController
   def index
     @comments = Comment.all
     @customer = current_customer
-    @post = Post.find(params[:post_id])
   end 
   
   def show

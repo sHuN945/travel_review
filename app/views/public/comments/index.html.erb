@@ -12,9 +12,7 @@
       <% @comments.each do |comment| %>
         <tr>
           <td>
-            <%= link_to post_path(@post.id), method: :get do %>
-              <%= comment.created_at %>
-            <% end %>
+            <%= comment.created_at %>
           </td>
           <td><%= comment.content %></td>
           <% if comment.customer == current_customer %>
