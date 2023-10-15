@@ -19,7 +19,7 @@
           </a>
           <ul class="nav pull-right nav-pills text-dark">
             <% if customer_signed_in? %>
-              <p class="h6">ユーザーネーム:<%= current_customer.last_name %></p>
+              <p class="columns is-centered">ユーザーネーム:<%= current_customer.last_name %></p>
               <li class="nav-item">
                 <%= link_to customers_path, class: "nav-link text-dark" do %>
                   マイページ
