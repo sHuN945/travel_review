@@ -4,8 +4,9 @@
       <tr>
         <th>コメント日時</th>
         <th>コメント内容</th>
+        <th>コメント者</th>
         <th></th>
-        <th colspan="2"></th>
+        <th colspan="3"></th>
       </tr>
     </thead>
     <tbody>
@@ -13,6 +14,9 @@
         <tr>
           <td>
             <%= comment.created_at %>
+          </td>
+          <td>
+            <%= comment.customer.last_name %><%= comment.customer.first_name %>
           </td>
           <td><%= comment.content %></td>
           <% if comment.customer == current_customer %>

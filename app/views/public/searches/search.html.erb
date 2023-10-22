@@ -5,7 +5,9 @@
     <tbody>
       <% @customers.each do |customer| %>
         <tr>
-          <td><%= customer.last_name %><%= customer.first_name %></td>
+          <td>
+            <%= customer.last_name %><%= customer.first_name %>
+          </td>
         </tr>
       <% end %>
     </tbody>

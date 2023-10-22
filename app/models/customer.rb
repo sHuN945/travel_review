@@ -37,8 +37,16 @@ class Customer < ApplicationRecord
     end
   end
 
-
-  validates :last_name, :first_name, :last_name_kana, :first_name_kana, :postal_code, :address, :telephone_number, presence: true
+  with_options presence: true do
+    validates :last_name
+    validates :first_name
+    validates :last_name_kana
+    validates :first_name_kana
+    validates :postal_code
+    validates :address
+    validates :telephone_number
+    validates :email
+  end
 
   def active_for_authentication?
     super && (is_deleted == nil)

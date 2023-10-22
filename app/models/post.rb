@@ -2,7 +2,7 @@ class Post < ApplicationRecord
   has_one_attached :image
   belongs_to :customer
   has_many :comments, dependent: :destroy
-  
+
   def self.looks(search, word)
     if search == "perfect_match"
       @post = Post.where("post_place LIKE?","#{word}")
@@ -16,8 +16,8 @@ class Post < ApplicationRecord
       @post = Post.all
     end
   end
-  
-  
+
+
   def get_image
     if image.attached?
       image
@@ -25,4 +25,10 @@ class Post < ApplicationRecord
       'no_image.jpg'
     end
   end
+
+  with_options presence: true do
+    validates :post_place
+    validates :introduction
+  end
+  
 end
