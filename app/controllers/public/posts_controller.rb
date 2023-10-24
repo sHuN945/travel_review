@@ -37,7 +37,7 @@ class Public::PostsController < ApplicationController
     @post.customer_id = current_customer.id
     if @post.save
       flash[:notice] = "投稿しました。"
-      redirect_to posts_path
+      redirect_to post_path(@post.id)
     else
       @posts = Post.all
       render :index

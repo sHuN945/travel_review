@@ -24,17 +24,7 @@ class Public::CommentsController < ApplicationController
   def show
   end 
   
-  def update
-    @post = Post.find(params[:post_id])
-    @comment = Comment.find(params[:id])
-    if @comment.update(comment_params)
-      flash[:success] = "Comment updated"
-      redirect_to @post
-    else
-      flash[:danger] = "Comment failed"
-      render 'edit'
-    end
-  end
+
   
   def destroy
     comment = Comment.find(params[:id])
