@@ -10,32 +10,32 @@ class Public::CommentsController < ApplicationController
       redirect_back(fallback_location: root_path)
     end
   end
-  
+
   def edit
     @post = Post.find(params[:post_id])
     @comment = Comment.find(params[:id])
   end
-  
+
   def index
     @comments = Comment.all
     @customer = current_customer
-  end 
-  
-  def show
-  end 
-  
+  end
 
-  
+  def show
+  end
+
+
+
   def destroy
     comment = Comment.find(params[:id])
     comment.destroy
     redirect_to '/comments'
-  end 
-  
+  end
+
   private
 
   def comment_params
     params.require(:comment).permit(:content, :post_id)
   end
-  
+
 end
