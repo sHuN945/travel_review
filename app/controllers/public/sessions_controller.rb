@@ -4,18 +4,9 @@ class Public::SessionsController < Devise::SessionsController
   before_action :customer_state, only: [:create]
 
   def guest_sign_in
-    begin
-      customer = Customer.guest
-      sign_in customer
-      redirect_to root_path, notice: 'ゲストカスタマーとしてログインしました。'
-    rescue => e
-      # エラーメッセージとスタックトレースをログに出力
-      Rails.logger.error("Error occurred: #{e.message}")
-      Rails.logger.error(e.backtrace.join("\n"))
-  
-      # ユーザーにフレンドリーなエラーメッセージを表示（オプション）
-      redirect_to root_path, alert: 'ゲストログインに失敗しました。'
-    end
+    customer = Customer.guest
+    sign_in customer
+    redirect_to root_path, notice: 'ゲストユーザーとしてログインしました。'
   end
   # GET /resource/sign_in
   # def new

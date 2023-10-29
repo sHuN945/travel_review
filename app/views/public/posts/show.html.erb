@@ -8,7 +8,7 @@
         <% if @post.image.attached? %>
           <%= image_tag @post.image, size: "200x200" %>
         <% else %>
-          <%= image_tag 'no_image', size: "200x200" %>
+          <%= image_tag 'no_image.jpg', size: "200x200" %>
         <% end %>
       </td>
       <div class="h4 py-2">投稿場所：<%= @post.post_place %></div>
@@ -26,7 +26,7 @@
             readOnly: true,
             score: <%= @post.star %>,
             };
-          
+
           raty(showElem, showOpt);
         </script>
       </div>
