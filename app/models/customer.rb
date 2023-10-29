@@ -12,7 +12,7 @@ class Customer < ApplicationRecord
 
   def self.guest
     find_or_create_by!(email: 'guest@example.com') do |customer|
-      customer.password = SecureRandom.urlsafe_base64
+      customer.password = '111111'
       customer.last_name = 'ゲスト'
       customer.first_name = 'カスタマー'
       customer.last_name_kana = 'ゲスト'
@@ -49,7 +49,7 @@ class Customer < ApplicationRecord
   end
 
   def active_for_authentication?
-    super && (is_deleted == nil)
+    super && (self.is_deleted == false)
   end
 
 end
