@@ -26,7 +26,7 @@ Rails.application.routes.draw do
     registrations: "public/registrations",
     sessions: 'public/sessions'
   }
-  
+
   namespace :admin do
     get '/' => "homes#top"
     resources :reviews, only: [:show, :index, :destroy]
@@ -34,7 +34,7 @@ Rails.application.routes.draw do
     resources :posts, only: [:destroy, :index, :show]
   end
 
- 
+
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
